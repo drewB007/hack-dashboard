@@ -18,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 //import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.support.SessionStatus;
 //import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -26,6 +27,10 @@ import javax.validation.Valid;
 //import java.net.URI;
 //import java.net.URISyntaxException;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 //import java.util.List;
 
 @Controller
@@ -103,6 +108,30 @@ public class EventController {
         model.addAttribute("totalScore", team.getTotal());
         model.addAttribute("messages", team.getMessages());
         return "index";
+
+    }
+
+    @RequestMapping(value = "/admin", method = RequestMethod.GET)
+    public String adminHome(Model model) {
+        String teamName = "admin";
+
+        model.addAttribute("teamName", teamName);
+
+        List<Team> teamScores = new ArrayList<>(10);
+
+        teamScores.add(teamService.findById("team1"));
+        teamScores.add(teamService.findById("team2"));
+        teamScores.add(teamService.findById("team3"));
+        teamScores.add(teamService.findById("team4"));
+        teamScores.add(teamService.findById("team5"));
+        teamScores.add(teamService.findById("team6"));
+        teamScores.add(teamService.findById("team7"));
+        teamScores.add(teamService.findById("team8"));
+        teamScores.add(teamService.findById("team9"));
+        teamScores.add(teamService.findById("team10"));
+
+        model.addAttribute("teamScores", teamScores);
+        return "admin";
 
     }
 
@@ -192,6 +221,14 @@ public class EventController {
     }
 
 
+
+    @RequestMapping(value = "/health", method = RequestMethod.GET)
+    @ResponseBody
+    public String getHealth() {
+
+        System.out.println("health check ... OK");
+        return "All Good Thanks";
+    }
 
 
 }

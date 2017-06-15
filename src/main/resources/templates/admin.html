@@ -20,7 +20,7 @@
 
 </head>
 <body>
-    <div id="wrapper">
+    <div id="wrapper" >
           <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -32,24 +32,8 @@
                 <a class="navbar-brand" href="#">Admin Panel</a>
             </div>
             <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul id="active" class="nav navbar-nav side-nav">
-                    <li class="selected"><a href="home"><i class="fa fa-bullseye"></i> Dashboard</a></li>
-                    <li><a href="home"><i class="fa fa-list-ol"></i> Vote</a></li>
-                </ul>
                 <ul class="nav navbar-nav navbar-right navbar-user">
-                    <li class="dropdown user-dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>
-                            <div th:text="${#authentication.name}" />
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <i class="fa fa-power-off"></i>
-                                <form th:action="@{/logout}" method="POST">
-                                    <input class="btn btn-primary btn-xs" type="submit" value="Sign Out"/>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
+
                 </ul>
             </div>
         </nav>
@@ -57,29 +41,38 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 th:text="${teamName}"> Dashboard <small>Statistics and more</small></h1>
-                    <div th:if="${#arrays.contains(@environment.getActiveProfiles(),'team.name')}">
-                        <div th:text=""></div>
-                    </div>
-                    <div class="alert alert-dismissable alert-danger">
+                    <h1> Admin Dashboard <small>Statistics and more</small></h1>
+
+                    <div class="alert alert-dismissable alert-warning">
                         <button data-dismiss="alert" class="close" type="button">&times;</button>
-                        Oh Snap! It appears you've been hacked
+                        Welcome to the hackathon dashboard!
                         <br />
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" >
                 <div class="col-lg-12">
-                    <div class="panel panel-danger">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> No Votes For You Right Now .... </h3>
+                            <h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> Team Scores </h3>
                         </div>
-                        <div class="panel-body feed">
-
+                        <div class="panel-body feed-grow">
+                            <!--<div class="col-md-4">-->
+                                <div class="bs-example">
+                                     <ul class="list-group" th:each="team : ${teamScores}">
+                                        <li class="list-group-item">
+                                            <span class="badge" th:text="${team.total}">0</span>
+                                            <div th:text="${team.team}"></div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            <!--</div>-->
                         </div>
                     </div>
                 </div>
+
             </div>
+
         </div><!-- /#page-wrapper -->
     </div><!-- /#wrapper -->
 
